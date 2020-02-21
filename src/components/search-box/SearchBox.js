@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./searchBox.css";
 
-class SearchBox extends Component {
+export default class SearchBox extends Component {
 	state = {
 		where: "",
 		checkIn: "",
@@ -93,5 +93,3 @@ class SearchBox extends Component {
 		);
 	}
 }
-
-export default SearchBox;
