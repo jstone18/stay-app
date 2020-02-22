@@ -3,6 +3,7 @@ import "./homePage.css";
 import axios from "axios";
 import SearchBox from "../../components/search-box/SearchBox";
 import Spinner from "../../components/spinner/Spinner";
+import Cities from "../../components/cities/Cities";
 
 export default class HomePage extends Component {
 	state = {
@@ -18,6 +19,7 @@ export default class HomePage extends Component {
 		if (this.state.cities.length === 0) {
 			return <Spinner />;
 		}
+
 		return (
 			<div className="container-fluid">
 				<div className="row">
@@ -26,6 +28,7 @@ export default class HomePage extends Component {
 							<SearchBox />
 						</div>
 					</div>
+					<Cities cities={this.state.cities} />
 				</div>
 			</div>
 		);
