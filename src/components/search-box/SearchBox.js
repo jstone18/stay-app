@@ -22,7 +22,7 @@ export default class SearchBox extends Component {
 	};
 
 	changeGuests = event => {
-		this.setState({ checkOut: event.target.value });
+		this.setState({ guests: event.target.value });
 	};
 
 	render() {
