@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./homePage.css";
 import axios from "axios";
 import SearchBox from "../../components/search-box/SearchBox";
@@ -12,6 +12,7 @@ export default class HomePage extends Component {
 
 	async componentDidMount() {
 		const citiesUrl = `${window.apiHost}/cities/recommended`;
+
 		const recommendedCities = await axios.get(citiesUrl);
 		this.setState({ cities: recommendedCities.data });
 	}
@@ -21,18 +22,30 @@ export default class HomePage extends Component {
 		}
 
 		return (
-			<div className="container-fluid">
-				<div className="row">
-					<div className="home col s12">
-						<div className="upper-fold">
-							<SearchBox />
+			<Fragment>
+				{/* Upper fold */}
+				<div className="container-fluid">
+					<div className="row">
+						<div className="home col s12">
+							<div className="upper-fold">
+								<SearchBox />
+							</div>
 						</div>
 					</div>
+				</div>
+				{/* Upper fold end */}
+
+				{/* Cities slider carousel */}
+				<div className="container-fluid lower-fold">
 					<div className="col s12">
-						<Cities cities={this.state.cities} />
+						<Cities
+							cities={this.state.cities}
+							header="Recommended Cities For You"
+						/>
 					</div>
 				</div>
-			</div>
+				{/* Cities slider carousel end */}
+			</Fragment>
 		);
 	}
 }

@@ -7,3 +7,7 @@
 	background-image: url("https://images.pexels.com/photos/356807/pexels-photo-356807.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
 	background-size: cover;
 }
+
+.lower-fold {
+	padding: 0 80px;
+}
