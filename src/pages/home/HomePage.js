@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchBox from "../../components/search-box/SearchBox";
 import Spinner from "../../components/spinner/Spinner";
 import Cities from "../../components/cities/Cities";
+import Activities from "../../components/activities/Activities";
 
 export default class HomePage extends Component {
 	state = {
@@ -12,7 +13,8 @@ export default class HomePage extends Component {
 		asianCities: {},
 		exoticCities: {},
 		usCities: {},
-		beachCities: {}
+		beachCities: {},
+		activitiesToday: []
 	};
 
 	async componentDidMount() {
@@ -40,8 +42,6 @@ export default class HomePage extends Component {
 			const usCities = data[4].data;
 			const beachCities = data[5].data;
 
-			console.log(exoticCities);
-
 			this.setState({
 				cities: recommendedCities,
 				europeCities,
@@ -52,7 +52,11 @@ export default class HomePage extends Component {
 			});
 		});
 
-		// this.setState({ cities: recommendedCities.data });
+		const activitiesUrl = `${window.apiHost}/activities/today`;
+		const activitiesToday = await axios.get(activitiesUrl);
+		this.setState({
+			activitiesToday: activitiesToday.data
+		});
 	}
 	render() {
 		if (this.state.cities.length === 0) {
@@ -73,34 +77,50 @@ export default class HomePage extends Component {
 				</div>
 				{/* Upper fold end */}
 
-				{/* Cities slider carousel */}
+				{/* Lower fold */}
 				<div className="container-fluid lower-fold">
-					<div className="col s12">
-						<Cities
-							cities={this.state.cities}
-							header="Recommended Cities For You"
-						/>
-					</div>
-					<div className="col s12">
-						<Cities
-							cities={this.state.europeCities.cities}
-							header={this.state.europeCities.header}
-						/>
-					</div>
-					<div className="col s12">
-						<Cities
-							cities={this.state.asianCities.cities}
-							header={this.state.asianCities.header}
-						/>
-					</div>
-					<div className="col s12">
-						<Cities
-							cities={this.state.exoticCities.cities}
-							header={this.state.exoticCities.header}
-						/>
+					<div className="row">
+						{/* Recommended Cities slider */}
+						<div className="col s12">
+							<Cities
+								cities={this.state.cities}
+								header="Recommended Cities For You"
+							/>
+						</div>
+
+						{/* Activities */}
+						<div className="col s12">
+							<Activities
+								activities={this.state.activitiesToday}
+								header="Today in your area"
+							/>
+						</div>
+
+						{/* European Cities slider */}
+						<div className="col s12">
+							<Cities
+								cities={this.state.europeCities.cities}
+								header={this.state.europeCities.header}
+							/>
+						</div>
+
+						{/* Asian Cities slider  */}
+						<div className="col s12">
+							<Cities
+								cities={this.state.asianCities.cities}
+								header={this.state.asianCities.header}
+							/>
+						</div>
+
+						{/* Exotic Cities slider  */}
+						<div className="col s12">
+							<Cities
+								cities={this.state.exoticCities.cities}
+								header={this.state.exoticCities.header}
+							/>
+						</div>
 					</div>
 				</div>
-				{/* Cities slider carousel end */}
 			</Fragment>
 		);
 	}
