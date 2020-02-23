@@ -6,7 +6,7 @@ import SlickSlider from "react-slick";
 
 const Slider = props => {
 	const settings = {
-		dots: true,
+		dots: false,
 		infinite: true,
 		arrows: true,
 		slidesToShow: 4,
