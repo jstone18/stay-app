@@ -5,6 +5,7 @@ import SearchBox from "../../components/search-box/SearchBox";
 import Spinner from "../../components/spinner/Spinner";
 import Cities from "../../components/cities/Cities";
 import Activities from "../../components/activities/Activities";
+import Venues from "../../components/venues/Venues";
 
 export default class HomePage extends Component {
 	state = {
@@ -14,7 +15,8 @@ export default class HomePage extends Component {
 		exoticCities: {},
 		usCities: {},
 		beachCities: {},
-		activitiesToday: []
+		activitiesToday: [],
+		recVenues: {}
 	};
 
 	async componentDidMount() {
@@ -39,16 +41,12 @@ export default class HomePage extends Component {
 			const europeCities = data[1].data;
 			const asianCities = data[2].data;
 			const exoticCities = data[3].data;
-			const usCities = data[4].data;
-			const beachCities = data[5].data;
 
 			this.setState({
 				cities: recommendedCities,
 				europeCities,
 				asianCities,
-				exoticCities,
-				usCities,
-				beachCities
+				exoticCities
 			});
 		});
 
@@ -57,9 +55,16 @@ export default class HomePage extends Component {
 		this.setState({
 			activitiesToday: activitiesToday.data
 		});
+
+		const recVenuesUrl = `${window.apiHost}/venues/recommended`;
+		const venues = await axios(recVenuesUrl);
+		this.setState({
+			recVenues: venues.data
+		});
 	}
+
 	render() {
-		if (this.state.cities.length === 0) {
+		if (this.state.cities.length === 0 || !this.state.recVenues.venues) {
 			return <Spinner />;
 		}
 
@@ -101,6 +106,13 @@ export default class HomePage extends Component {
 							<Cities
 								cities={this.state.europeCities.cities}
 								header={this.state.europeCities.header}
+							/>
+						</div>
+
+						<div className="col s12">
+							<Venues
+								venues={this.state.recVenues.venues}
+								header={this.state.recVenues.header}
 							/>
 						</div>
 
