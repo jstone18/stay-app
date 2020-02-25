@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { closeModal } from "../../redux/actions/modal.actions";
 import "./modal.css";
 
 class Modal extends Component {
 	state = {};
 
+	closeModal = () => {
+		this.props.closeModal("close", "");
+	};
+
 	render() {
-		let modalInlineStyle = { display: "none" };
+		let modalInlineStyle;
 
 		if (this.props.siteModal.openClose === "open") {
 			modalInlineStyle = { display: "block" };
+		} else {
+			modalInlineStyle = { display: "none" };
 		}
 
 		return (
@@ -32,4 +39,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps, { closeModal })(Modal);
