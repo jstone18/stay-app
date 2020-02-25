@@ -47,7 +47,6 @@ class SingleVenue extends Component {
 
 	render() {
 		const {
-			id,
 			title,
 			location,
 			rating,
@@ -86,14 +85,16 @@ class SingleVenue extends Component {
 						<div className="rating">{rating}</div>
 						<div className="col s6">
 							Check-In
-							<input type="date" />
+							<input type="date" onChange={this.changeCheckIn} />
 						</div>
 						<div className="col s6">
 							Check-Out
-							<input type="date" />
+							<input type="date" onChange={this.changeCheckOut} />
 						</div>
 						<div className="col s12">
-							<select className="browser-default">
+							<select
+								className="browser-default"
+								onChange={this.numberOfGuests}>
 								<option value="1">1 Guest</option>
 								<option value="2">2 Guest</option>
 								<option value="3">3 Guest</option>
