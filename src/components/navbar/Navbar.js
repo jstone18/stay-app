@@ -1,8 +1,10 @@
 import React from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { openModal } from "../../redux/actions/modal.actions";
 
-const Navbar = ({ location }) => {
+const Navbar = ({ location, openModal }) => {
 	let navColor = "transparent";
 
 	if (location.pathname !== "/") {
@@ -34,8 +36,11 @@ const Navbar = ({ location }) => {
 							<li>
 								<Link to="/">Sign Up</Link>
 							</li>
-							<li>
-								<Link to="/">Log In</Link>
+							<li
+								onClick={() => {
+									openModal("open", "Log in");
+								}}>
+								Log In
 							</li>
 						</ul>
 					</div>
@@ -45,4 +50,4 @@ const Navbar = ({ location }) => {
 	);
 };
 
-export default Navbar;
+export default connect(null, { openModal })(Navbar);
