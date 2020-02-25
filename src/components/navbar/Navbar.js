@@ -3,6 +3,7 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { openModal } from "../../redux/actions/modal.actions";
+import Login from "../log-in-sign-up/LogIn";
 
 const Navbar = ({ location, openModal }) => {
 	let navColor = "transparent";
@@ -38,7 +39,7 @@ const Navbar = ({ location, openModal }) => {
 							</li>
 							<li
 								onClick={() => {
-									openModal("open", "Log in");
+									openModal("open", <Login />);
 								}}>
 								Log In
 							</li>
